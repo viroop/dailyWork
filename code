@@ -1,3 +1,124 @@
 //Code Goes Here
 
-ghfgh
+package automationFramework;
+
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
+
+//import org.apache.bcel.generic.Select;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.By;
+import org.openqa.selenium.By.ByClassName;
+import org.openqa.selenium.By.ByXPath;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+
+public class newTours extends newTours2
+{
+	public static void main(String[] args)
+	{
+		System.setProperty("webdriver.gecko.driver", "C:\\Users\\483713\\AppData\\Local\\Temp\\Temp2_geckodriver-v0.11.1-win32.Zip\\geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+//Launch		
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	    driver.get("http://newtours.demoaut.com/index.php");
+	    System.out.println("Launched Application");
+//log-in
+	    //driver.findElement(By.xpath("//a[@href='mercurysignon.php']")).click();
+	    driver.findElement(By.xpath("//input[@name='userName']")).sendKeys("academy");
+	    driver.findElement(By.xpath("//input[@name='password']")).sendKeys("academy");
+	    driver.findElement(By.xpath("//input[@name='login']")).click();
+	    System.out.println("Logged into Application");
+//Book a flight
+	    
+	    //passenger Count
+	    Select passCount = new Select(driver.findElement(By.xpath("//select[@name='passCount']")));
+	    List<WebElement> passCountList = passCount.getOptions();
+	    System.out.println("The 'Passengers' drop down has " + passCountList.size() + " List items");
+	    int randNum = (int) (Math.random() * passCountList.size());
+	    passCount.selectByIndex(randNum);
+	    System.out.println("number of Passengers Selected : " + ++randNum);
+	    
+	    //Departing From:
+	    Select fromPort = new Select(driver.findElement(By.xpath("//select[@name='fromPort']")));
+	    List<WebElement> departingFrom = fromPort.getOptions();
+	    System.out.println("The 'Departing From' drop down has " + departingFrom.size() + " List items");
+	    int randNum1 = (int) (Math.random() * departingFrom.size());
+	    fromPort.selectByIndex(randNum1);
+	    WebElement departFrom = fromPort.getFirstSelectedOption();
+	    System.out.println("The Passenger is Departing from : " + departFrom.getText());
+	    String Depart = departFrom.getText();
+	    
+	    //Departing On fromMonth:
+	    Select fromMonth = new Select(driver.findElement(By.xpath("//select[@name='fromMonth']")));
+	    List<WebElement> departingMonth = fromMonth.getOptions();
+	    System.out.println("The 'Departing Month' drop down has " + departingMonth.size() + " List items");
+	    int randNum2 = (int) (Math.random() * departingMonth.size());
+	    fromMonth.selectByIndex(randNum2);
+	    WebElement DepartOnfromMonth = fromMonth.getFirstSelectedOption();
+	    System.out.println("The Passenger is Departing in : " + DepartOnfromMonth.getText() + " Month");
+	    String departMonth = DepartOnfromMonth.getText();
+	    
+	  //Departing On fromDay:
+	    Select fromDay = new Select(driver.findElement(By.xpath("//select[@name='fromDay']")));
+	    List<WebElement> departingOnDay = fromDay.getOptions();
+	    System.out.println("The 'Departing Day' drop down has " + departingOnDay.size() + " List items");
+	    int randNum3 = (int) (Math.random() * departingOnDay.size());
+	    fromDay.selectByIndex(randNum3);
+	    System.out.println("Passenger is travelling on : " + ++randNum3);
+	    int departDay = ++randNum3;
+
+	    //Arriving In:
+		Select toPort = new Select(driver.findElement(By.xpath("//select[@name='toPort']")));
+	    List<WebElement> arrivingIn = toPort.getOptions();
+	    System.out.println("The 'Arriving In' drop down has " + arrivingIn.size() + " List items");
+	    int randNum4 = (int) (Math.random() * arrivingIn.size());
+	    toPort.selectByIndex(randNum4);
+	    WebElement arriveTo = toPort.getFirstSelectedOption();
+	    System.out.println("The Passenger is Arriving to : " + arriveTo.getText());
+	    String Arrive = arriveTo.getText();
+	    
+	    if ( Depart != Arrive)
+	    {
+	    	System.out.println("You are good to Go");
+	    }
+	    else
+	    {
+	    	Select toPort2 = new Select(driver.findElement(By.xpath("//select[@name='toPort']")));
+		    List<WebElement> arrivingIn2 = toPort2.getOptions();
+		    System.out.println("The 'Arriving In' drop down has " + arrivingIn2.size() + " List items");
+		    int randNum5 = (int) (Math.random() * arrivingIn2.size());
+		    toPort2.selectByIndex(randNum5);
+		    WebElement arriveTo1 = toPort2.getFirstSelectedOption();
+		    System.out.println("The Passenger is Arriving to : " + arriveTo1.getText());
+	    }
+	    
+	  //Returning On toMonth:
+	    Select toMonth = new Select(driver.findElement(By.xpath("//select[@name='fromMonth']")));
+	    List<WebElement> arrivingMonth = toMonth.getOptions();
+	    System.out.println("The 'Arriving Month' drop down has " + arrivingMonth.size() + " List items");
+	    int randNum6 = (int) (Math.random() * arrivingMonth.size());
+	    toMonth.selectByIndex(randNum6);
+	    WebElement retunOnToMonth = toMonth.getFirstSelectedOption();
+	    System.out.println("The Passenger is Departing in : " + retunOnToMonth.getText() + " Month");
+	    String arriveMonth = retunOnToMonth.getText();
+	    
+	  //Returning On toDay:
+	    Select toDay = new Select(driver.findElement(By.xpath("//select[@name='fromDay']")));
+	    List<WebElement> arrivingOnDay = toDay.getOptions();
+	    System.out.println("The 'Returning' drop down has " + arrivingOnDay.size() + " List items");
+	    int randNum7 = (int) (Math.random() * arrivingOnDay.size());
+	    toDay.selectByIndex(randNum7);
+	    System.out.println("Passenger is returning on : " + ++randNum6);
+	    int ArriveDay = ++randNum6;
+	    
+	    
+	}
+}
